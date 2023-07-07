@@ -3,9 +3,6 @@ from urllib.parse import quote
 import requests
 import json
 
-# https://steamcommunity.com/market/listings/730/Sticker%20%7C%20Boom%20%28Foil%29
-# https://steamcommunity.com/market/priceoverview/?appid=730&currency=3&market_hash_name=
-
 def lambda_get_steam(event, ctx):
 
     item_name = quote(event["queryStringParameters"]["itemName"])
@@ -15,7 +12,7 @@ def lambda_get_steam(event, ctx):
 
     if request["success"] == True:
 
-        return return_msg(200, request)
+        return return_msg(200, json.dumps(request))
     
     else:
 
@@ -32,15 +29,3 @@ def return_msg(status_code, body):
     }
     
     return msg
-
-if __name__ == "__main__":
-
-    event = {
-
-        "queryStringParameters": {
-            "itemName": "MP5-SD | Co-Processor (MinimWear)"
-        }
-
-    }
-
-    print(lambda_get_steam(event, ""))
