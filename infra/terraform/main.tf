@@ -61,6 +61,11 @@ resource "aws_iam_policy" "lambda-policy-prjctVes" {
         "Effect" : "Allow",
         "Action" : ["dynamodb:*"],
         "Resource" : "${aws_dynamodb_table.prjctVes.arn}"
+      },
+      {
+        "Effect" : "Allow",
+        "Action" : "ssm:GetParameter",
+        "Resource" : "arn:aws:ssm:us-west-2:850985080824:parameter/Steam_Session_Cookie"
       }
     ]
 
