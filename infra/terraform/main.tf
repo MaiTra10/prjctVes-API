@@ -53,7 +53,6 @@ resource "aws_iam_role" "lambda" {
 resource "aws_iam_policy" "lambda-policy-prjctVes" {
   
   name = "lambda_policies_prjctVes"
-  
   policy = jsonencode({
 
     "Version" : "2012-10-17",
@@ -64,6 +63,7 @@ resource "aws_iam_policy" "lambda-policy-prjctVes" {
         "Resource" : "${aws_dynamodb_table.prjctVes.arn}"
       }
     ]
+
   })
 }
 # Lambda Policy Attachment
@@ -71,6 +71,50 @@ resource "aws_iam_role_policy_attachment" "attach" {
   
   role = aws_iam_role.lambda.name
   policy_arn = aws_iam_policy.lambda-policy-prjctVes.arn
+
+}
+# API Gateway Role
+resource "aws_iam_role" "api-gateway" {
+
+  name = "iam-for-api-gateway-prjvtVes"
+  assume_role_policy = jsonencode({
+
+    "Version": "2012-10-17",
+    "Statement": [
+      {
+        "Action": "sts:AssumeRole",
+        "Effect": "Allow",
+        "Sid": "",
+        "Principal": {
+          "Service": "apigateway.amazonaws.com"
+        }
+      }
+    ]
+
+  })
+}
+# API Gateway Policy
+resource "aws_iam_policy" "api-gateway-policy-prjctVes" {
+  
+  name = "api_gateway_policies_prjctVes"
+  policy = jsonencode({
+
+    "Version" : "2012-10-17",
+    "Statement" : [
+      {
+        "Effect" : "Allow",
+        "Action" : ["dynamodb:*"],
+        "Resource" : "${aws_dynamodb_table.prjctVes.arn}"
+      }
+    ]
+
+  })
+}
+# API Gateway Policy Attachment
+resource "aws_iam_role_policy_attachment" "attach-api" {
+  
+  role = aws_iam_role.api-gateway.name
+  policy_arn = aws_iam_policy.api-gateway-policy-prjctVes.arn
 
 }
 # Zip get-steam
