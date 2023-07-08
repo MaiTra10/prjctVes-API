@@ -117,17 +117,3 @@ def advanced_data_bp(exchange, price, previous_close, data):
         }
 
     return advanced_data
-
-if __name__ == "__main__":
-
-    event = {
-
-        "queryStringParameters": {
-            "requestType": "advanced",
-            "ticker": "000001",
-            "exchange": "SHA"
-        }
-
-    }
-
-    print(lambda_get_stock(event, ""))
