@@ -13,7 +13,7 @@ def lambda_get_stock(event, ctx):
 
     html = requests.get(url).text
 
-    soup = BeautifulSoup(html, "lxml")
+    soup = BeautifulSoup(html)
 
     try:
 
