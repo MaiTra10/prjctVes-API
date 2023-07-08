@@ -32,7 +32,15 @@ def lambda_get_steam(event, ctx):
 
         price_history_resp = requests.get(price_history_url, cookies = cookie).json()
 
-        price_resp["prices"] = price_history_resp["prices"][-300:]
+        prices = price_history_resp["prices"]
+
+        if len(prices) < 300:
+
+            price_resp["prices"] = prices[-len(price_history_resp):]
+
+        else:
+            
+            price_resp["prices"] = prices[-300:]
 
         return return_msg(200, json.dumps(price_resp))
 
