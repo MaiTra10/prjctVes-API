@@ -1,6 +1,5 @@
 # get-stock
 from bs4 import BeautifulSoup
-from types import NoneType
 import requests
 import json
 
