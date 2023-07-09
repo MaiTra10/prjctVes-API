@@ -7,3 +7,6 @@ infra/terraform/steam-artifact.zip
 infra/terraform/stock-artifact.zip
 infra/terraform/terraform.tfstate
 infra/terraform/terraform.tfstate.backup
+infra/terraform/remove-artifact.zip
+infra/terraform/add-artifact.zip
+infra/terraform/get-artifact.zip

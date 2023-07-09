@@ -138,6 +138,30 @@ data "archive_file" "get-stock" {
   output_path = "stock-artifact.zip"
 
 }
+# Zip add
+data "archive_file" "add" {
+
+  type = "zip"
+  source_file = "../../add/main.py"
+  output_path = "add-artifact.zip"
+
+}
+# Zip remove
+data "archive_file" "remove" {
+
+  type = "zip"
+  source_file = "../../remove/main.py"
+  output_path = "remove-artifact.zip"
+
+}
+# Zip get
+data "archive_file" "get" {
+
+  type = "zip"
+  source_file = "../../get/main.py"
+  output_path = "get-artifact.zip"
+
+}
 # Lambda prjctVes-get-steam
 resource "aws_lambda_function" "prjctVes-get-steam" {
   
@@ -159,6 +183,42 @@ resource "aws_lambda_function" "prjctVes-get-stock" {
   timeout = 20
   filename = "stock-artifact.zip"
   source_code_hash = data.archive_file.get-stock.output_base64sha256
+  runtime = "python3.9"
+
+}
+# Lambda prjctVes-add
+resource "aws_lambda_function" "prjctVes-add" {
+  
+  role = aws_iam_role.lambda.arn
+  function_name = "prjctVes-add"
+  handler = "main.lambda_add"
+  timeout = 20
+  filename = "add-artifact.zip"
+  source_code_hash = data.archive_file.add.output_base64sha256
+  runtime = "python3.9"
+
+}
+# Lambda prjctVes-remove
+resource "aws_lambda_function" "prjctVes-remove" {
+  
+  role = aws_iam_role.lambda.arn
+  function_name = "prjctVes-remove"
+  handler = "main.lambda_remove"
+  timeout = 20
+  filename = "remove-artifact.zip"
+  source_code_hash = data.archive_file.remove.output_base64sha256
+  runtime = "python3.9"
+
+}
+# Lambda prjctVes-get
+resource "aws_lambda_function" "prjctVes-get" {
+  
+  role = aws_iam_role.lambda.arn
+  function_name = "prjctVes-get"
+  handler = "main.lambda_get"
+  timeout = 20
+  filename = "get-artifact.zip"
+  source_code_hash = data.archive_file.get.output_base64sha256
   runtime = "python3.9"
 
 }
