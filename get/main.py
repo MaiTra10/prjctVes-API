@@ -1,5 +1,6 @@
 # get
 import boto3
+import simplejson as json
 from boto3.dynamodb.conditions import Key
 
 dynamoDB = boto3.resource("dynamodb")
@@ -12,7 +13,6 @@ def lambda_get(event, ctx):
 
     event_for = params["for"]
     user = int(params["user"])
-    retrieve = params["retrieve"]
 
     if event_for == "both":
 
@@ -22,7 +22,7 @@ def lambda_get(event, ctx):
 
             return return_msg(403, "Error: Table is Empty")
 
-        return return_msg(200, both_query_resp["Items"])
+        return return_msg(200, json.dumps(both_query_resp["Items"]))
 
     if event_for == "steam":
 
@@ -32,6 +32,8 @@ def lambda_get(event, ctx):
 
         prefix = ".s-"
 
+    retrieve = params["retrieve"]
+
     if retrieve == "all":
 
         query_resp = table.query(KeyConditionExpression = Key("userID").eq(user) & Key("ctx").begins_with(prefix))
@@ -40,7 +42,7 @@ def lambda_get(event, ctx):
 
             return return_msg(403, "Error: Table is Empty")
 
-        return return_msg(200, query_resp["Items"])
+        return return_msg(200, json.dumps(query_resp["Items"]))
     
     else: # 'retrieve' is 'specific' and needs 'index' parameter
 
@@ -67,7 +69,7 @@ def lambda_get(event, ctx):
 
         })
 
-        return return_msg(200, get_resp["Item"])
+        return return_msg(200, json.dumps(get_resp["Item"]))
 
 
 
