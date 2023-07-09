@@ -23,7 +23,7 @@ def lambda_add(event, ctx):
         prefix = "s-"
         context = f"{prefix}{uuid.uuid4()}"
 
-    user = params["user"]
+    user = int(params["user"])
     item_to_add = params["itemToAdd"]
 
     query_resp = table.query(KeyConditionExpression = Key("userID").eq(user) & Key("ctx").begins_with(prefix))
