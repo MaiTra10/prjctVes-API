@@ -71,6 +71,8 @@ def advanced_data_bp(exchange, price, previous_close, data):
 
             "Current Price": price,
             "Previous Close": previous_close,
+            "Day Range": data[1].text,
+            "Year Range": data[2].text,
             "Market Cap": data[3].text,
             "Average Volume": data[4].text,
             "P/E Ratio": data[5].text,
@@ -85,6 +87,8 @@ def advanced_data_bp(exchange, price, previous_close, data):
 
             "Current Price": price,
             "Previous Close": previous_close,
+            "Day Range": data[1].text,
+            "Year Range": data[2].text,
             "Market Cap": data[3].text,
             "P/E Ratio": data[4].text,
             "Dividend Yield": data[5].text,
@@ -98,6 +102,7 @@ def advanced_data_bp(exchange, price, previous_close, data):
 
             "Current Price": price,
             "Previous Close": previous_close,
+            "Day Range": data[1].text,
             "Volume": data[2].text,
             "Open Interest": data[5].text,
             "Settlement Price": data[6].text,
@@ -111,6 +116,8 @@ def advanced_data_bp(exchange, price, previous_close, data):
 
             "Current Price": price,
             "Previous Close": previous_close,
+            "Day Range": data[1].text,
+            "Year Range": data[2].text,
             "% Change": calculate_percent_change(price, previous_close)
 
         }
