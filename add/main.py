@@ -15,12 +15,12 @@ def lambda_add(event, ctx):
 
     if event_for == "steam":
 
-        prefix = "v-"
+        prefix = ".v-"
         context = f"{prefix}{uuid.uuid4()}"
 
     else:
 
-        prefix = "s-"
+        prefix = ".s-"
         context = f"{prefix}{uuid.uuid4()}"
 
     user = int(params["user"])

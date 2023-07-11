@@ -5,7 +5,7 @@ import json
 
 def lambda_get_stock(event, ctx):
 
-    requestType = event["queryStringParameters"]["requestType"]
+    request_type = event["queryStringParameters"]["requestType"]
     ticker = event["queryStringParameters"]["ticker"]
     exchange = event["queryStringParameters"]["exchange"]
 
@@ -21,11 +21,15 @@ def lambda_get_stock(event, ctx):
 
     except:
 
-        return return_msg(400, "Error: Ticker or Exchange is Invalid")
+        return return_msg(404, "Error: Ticker or Exchange not Found")
+        
+    if request_type == "validate":
+        
+        return return_msg(200, "Valid")
 
     previous_close = soup.find("div", class_ = "P6K39c").text
 
-    if requestType == "advanced":
+    if request_type == "advanced":
 
         data = soup.find_all("div", class_ = "P6K39c")
 

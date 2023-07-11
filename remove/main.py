@@ -1,5 +1,6 @@
 # remove
 import boto3
+import simplejson as json
 from boto3.dynamodb.conditions import Key
 
 dynamoDB = boto3.resource("dynamodb")
@@ -16,11 +17,11 @@ def lambda_remove(event, ctx):
 
     if event_for == "steam":
 
-        prefix = "v-"
+        prefix = ".v-"
 
     else:
 
-        prefix = "s-"
+        prefix = ".s-"
 
     query_resp = table.query(KeyConditionExpression = Key("userID").eq(user) & Key("ctx").begins_with(prefix))
 
@@ -43,7 +44,7 @@ def lambda_remove(event, ctx):
 
     }, ReturnValues = "ALL_OLD")
 
-    body = f"Successfully Deleted: {delete_resp['Attributes']}"
+    body = json.dumps(delete_resp['Attributes'])
 
     return return_msg(delete_resp["ResponseMetadata"]["HTTPStatusCode"], body)
 

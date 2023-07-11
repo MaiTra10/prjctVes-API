@@ -15,7 +15,11 @@ def lambda_get_steam(event, ctx):
 
     if price_resp["success"] == False:
 
-        return return_msg(400, "Bad Request")
+        return return_msg(404, "Error: Item not Found")
+
+    if request_type == "validate":
+        
+        return return_msg(200, "Valid")
 
     if request_type == "advanced":
 
@@ -26,7 +30,7 @@ def lambda_get_steam(event, ctx):
             WithDecryption=True
         )
         
-        price_history_url = "https://steamcommunity.com/market/pricehistory/?country=DE&currency=3&appid=730&market_hash_name=Revolution%20Case"
+        price_history_url = "https://steamcommunity.com/market/pricehistory/?country=DE&currency=3&appid=730&market_hash_name=" + item_name
 
         cookie = {"steamLoginSecure": ssm_resp["Parameter"]["Value"]}
 
