@@ -1,8 +1,9 @@
 # get-steam
-from urllib.parse import quote
 import requests
 import boto3
 import json
+from bs4 import BeautifulSoup
+from urllib.parse import quote
 
 def lambda_get_steam(event, ctx):
 
@@ -20,6 +21,16 @@ def lambda_get_steam(event, ctx):
     if request_type == "validate":
         
         return return_msg(200, "Valid")
+
+    page_url = "https://steamcommunity.com/market/listings/730/" + item_name
+
+    html = requests.get(page_url).text
+
+    soup = BeautifulSoup(html)
+
+    item_img_url = soup.find("div", "market_listing_largeimage").img["src"]
+
+    price_resp["imgURL"] = item_img_url
 
     if request_type == "advanced":
 
