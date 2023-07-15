@@ -42,6 +42,8 @@ def lambda_get_steam(event, ctx):
             prices = price_history_resp["prices"]
 
             price_resp["prices"] = get_history(prices)
+            
+            price_resp["historyAvailable"] = True
                 
         except:
             
