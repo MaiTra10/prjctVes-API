@@ -22,16 +22,6 @@ def lambda_get_steam(event, ctx):
         
         return return_msg(200, "Valid")
 
-    page_url = "https://steamcommunity.com/market/listings/730/" + item_name
-
-    html = requests.get(page_url).text
-
-    soup = BeautifulSoup(html)
-
-    item_img_url = soup.find("div", "market_listing_largeimage").img["src"]
-
-    price_resp["imgURL"] = item_img_url
-
     if request_type == "advanced":
 
         ssm = boto3.client("ssm", region_name="us-west-2")
@@ -47,15 +37,25 @@ def lambda_get_steam(event, ctx):
 
         price_history_resp = requests.get(price_history_url, cookies = cookie).json()
 
-        prices = price_history_resp["prices"]
-
-        if len(prices) < 300:
-
-            price_resp["prices"] = prices[-len(price_history_resp):]
-
-        else:
+        try :
             
-            price_resp["prices"] = prices[-300:]
+            prices = price_history_resp["prices"]
+
+            price_resp["prices"] = get_history(prices)
+                
+        except:
+            
+            price_resp["historyAvailable"] = False
+            
+        page_url = "https://steamcommunity.com/market/listings/730/" + item_name
+        
+        html = requests.get(page_url).text
+        
+        soup = BeautifulSoup(html)
+        
+        item_img_url = soup.find("div", "market_listing_largeimage").img["src"]
+        
+        price_resp["imgURL"] = item_img_url
 
         return return_msg(200, json.dumps(price_resp))
 
@@ -72,3 +72,13 @@ def return_msg(status_code, body):
     }
     
     return msg
+    
+def get_history(prices):
+    
+    if len(prices) < 300:
+        
+        return prices[-len(prices):]
+
+    else:
+        
+        return prices[-300:]

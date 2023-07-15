@@ -20,7 +20,7 @@ def lambda_get(event, ctx):
 
         if int(both_query_resp["Count"]) == 0:
 
-            return return_msg(403, "Error: Table is Empty")
+            return return_msg(403, "Error: Table is empty")
 
         return return_msg(200, json.dumps(both_query_resp["Items"]))
 
@@ -40,7 +40,7 @@ def lambda_get(event, ctx):
 
         if int(query_resp["Count"]) == 0:
 
-            return return_msg(403, "Error: Table is Empty")
+            return return_msg(403, "Error: Table is empty")
 
         return return_msg(200, json.dumps(query_resp["Items"]))
     
@@ -54,11 +54,11 @@ def lambda_get(event, ctx):
 
         if count == 0:
 
-            return return_msg(403, f"Error: Table is Empty")
+            return return_msg(403, f"Error: Table is empty")
 
         elif index not in range(1, count + 1):
 
-            return return_msg(400, f"Error: Index is Out of Range (1 - {count})")
+            return return_msg(400, f"Error: Index is out of range. Only {count} entry/entries in watchlist!")
 
         item_id = query_resp["Items"][index - 1]["ctx"]
 
