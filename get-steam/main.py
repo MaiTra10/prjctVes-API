@@ -77,10 +77,10 @@ def return_msg(status_code, body):
     
 def get_history(prices):
     
-    if len(prices) < 300:
+    if len(prices) < 750:
         
         return prices[-len(prices):]
 
     else:
         
-        return prices[-300:]
+        return prices[-750:]

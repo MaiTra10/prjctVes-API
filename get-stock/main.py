@@ -35,6 +35,10 @@ def lambda_get_stock(event, ctx):
 
         advanced_data = advanced_data_bp(exchange, price, previous_close, data)
 
+        name = soup.find("div", class_ = "zzDege").text
+
+        advanced_data["Name"] = name
+
         return return_msg(200, json.dumps(advanced_data))
 
     return return_msg(200, json.dumps({
@@ -69,7 +73,7 @@ def advanced_data_bp(exchange, price, previous_close, data):
     canada_exchange = ["TSE"]
     futures_exchange = ["CBOT", "CME_EMINIS", "COMEX", "NYMEX"]
 
-    if exchange in usa_exchange:
+    if exchange in usa_exchange or exchange in canada_exchange:
 
         advanced_data = {
 
@@ -81,21 +85,6 @@ def advanced_data_bp(exchange, price, previous_close, data):
             "Average Volume": data[4].text,
             "P/E Ratio": data[5].text,
             "Dividend Yield": data[6].text,
-            "% Change": calculate_percent_change(price, previous_close)
-
-        }
-
-    elif exchange in canada_exchange:
-
-        advanced_data = {
-
-            "Current Price": price,
-            "Previous Close": previous_close,
-            "Day Range": data[1].text,
-            "Year Range": data[2].text,
-            "Market Cap": data[3].text,
-            "P/E Ratio": data[4].text,
-            "Dividend Yield": data[5].text,
             "% Change": calculate_percent_change(price, previous_close)
 
         }
