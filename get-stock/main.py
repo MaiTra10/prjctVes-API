@@ -73,7 +73,7 @@ def advanced_data_bp(exchange, price, previous_close, data):
     canada_exchange = ["TSE"]
     futures_exchange = ["CBOT", "CME_EMINIS", "COMEX", "NYMEX"]
 
-    if exchange in usa_exchange:
+    if exchange in usa_exchange or exchange == "AVG_INCLUDED":
 
         advanced_data = {
 
@@ -91,25 +91,14 @@ def advanced_data_bp(exchange, price, previous_close, data):
         
     elif exchange in canada_exchange:
         
-        advanced_data = {
-
-            "Current Price": price,
-            "Previous Close": previous_close,
-            "Day Range": data[1].text,
-            "Year Range": data[2].text,
-            "Market Cap": data[3].text,
-            "P/E Ratio": data[4].text,
-            "Dividend Yield": data[5].text,
-            "% Change": calculate_percent_change(price, previous_close)
-
-        }
-        
-        if data[4].previous_sibling.div.text.lower() == "avg volume":
+        if data[4].previous_sibling.div.text.lower() != "avg volume":
             
-            advanced_data["Average Volume"] = data[4]
-            advanced_data["P/E Ratio"] = data[5].text
-            advanced_data["Dividend Yield"] = data[6].text
-
+            advanced_data = {"Current Price": price, "Previous Close": previous_close, "Day Range": data[1].text, "Year Range": data[2].text, "Market Cap": data[3].text, "P/E Ratio": data[4].text, "Dividend Yield": data[5].text, "% Change": calculate_percent_change(price, previous_close)}
+            
+        else:
+            
+            advanced_data = advanced_data_bp("AVG_INCLUDED", price, previous_close, data)
+            
     elif exchange in futures_exchange:
 
         advanced_data = {
