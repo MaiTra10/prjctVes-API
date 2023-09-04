@@ -6,19 +6,24 @@ While this isn't meant to be a publicly available API as I only use it internall
 ## :electric_plug: Endpoints
 
 - POST &emsp;&ensp;```/prod/add```
-&emsp;<details>
+<details>
   <summary>Example Request</summary>
   <p>
     <pre lang="python">
-    curl -X POST https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
-        -H 'x-api-key:API_KEY'
-      </pre>
+curl -X POST https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
+  -H 'x-api-key:API_KEY'
+    </pre>
   </p>
 </details>
-&emsp;<details>
+
+<details>
   <summary>Example Response</summary>
   <p>
-    <pre lang="python">Status: 400
+    <pre lang="python">
+Status: 200<br>
+OR<br>
+Status: 409
+Body: 'Error: Duplicate Entry'
     </pre>
   </p>
 </details>
