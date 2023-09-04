@@ -6,15 +6,16 @@ While this isn't meant to be a publicly available API as I only use it internall
 ## :electric_plug: Endpoints
 
 - POST &emsp;&ensp;```/prod/add```
-<details>
+&emsp;<details>
   <summary>Example Request</summary>
   <p>
-    <pre lang="python">curl -X POST https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
+    <pre lang="python">
+    curl -X POST https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
         -H 'x-api-key:API_KEY'
       </pre>
   </p>
 </details>
-<details>
+&emsp;<details>
   <summary>Example Response</summary>
   <p>
     <pre lang="python">Status: 400
