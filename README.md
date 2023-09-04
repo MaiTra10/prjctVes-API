@@ -139,7 +139,7 @@ curl https://sample-url.com/prod/steam?requestType=validate&itemName=Horizon Cas
 curl https://sample-url.com/prod/steam?requestType=basic&itemName=Horizon Case \
   -H 'x-api-key:API_KEY'
     </pre>
-    Advanced > to get basic price data plus a graph
+    Advanced > to get basic price data plus sufficient price history data to create a graph
     <pre lang="">
 curl https://sample-url.com/prod/steam?requestType=advanced&itemName=Horizon Case \
   -H 'x-api-key:API_KEY'
