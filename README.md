@@ -1,9 +1,11 @@
 # :gear: prjctVes-API
-**prjctVes-API** is a REST API I developed to be used by [prjctVes](https://github.com/MaiTra10/prjctVes) to allow it to interact with its DynamoDB table and retrieve Steam Market and stock price data. I created this REST API through the use of the AWS API Gateway and Lambda functions.
+**prjctVes-API** is a REST API I developed to be used by [prjctVes](https://github.com/MaiTra10/prjctVes) to allow it to interact with a DynamoDB table and retrieve Steam Market and stock price data. I created this REST API through the use of the AWS API Gateway and Lambda functions.
 
 While this isn't meant to be a publicly available API as I only use it internally to retrieve data for the Discord bot (authorized via private API key), I will provide documentation for the different API Gateway resources.
 
 ## :electric_plug: Endpoints
+
+**NOTE**: *These are only sample curl commands to show how the API is structured and will NOT return any data if executed*
 
 POST &emsp;&ensp;```/prod/add```
 
@@ -11,7 +13,7 @@ POST &emsp;&ensp;```/prod/add```
   <summary>Example Request</summary>
   <p>
     <pre lang="">
-curl -X POST https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
+curl -X POST https://sample-url.com/prod/add?for=stock&itemToAdd=TSLA:NASDAQ&user=USER_ID \
   -H 'x-api-key:API_KEY'
     </pre>
   </p>
@@ -31,24 +33,24 @@ Body: 'Error: Duplicate Entry'
   </p>
 </details>
 
-GET &emsp;&emsp;```https://sample-url.com/prod/get```
+GET &emsp;&emsp;```/prod/get```
 
 <details>
   <summary>Example Request</summary>
   <p><br>
     Get all items in both watchlists
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/get?for=both&user=USER_ID \
+curl https://sample-url.com/prod/get?for=both&user=USER_ID \
   -H 'x-api-key:API_KEY'
     </pre>
     Get all items from one of the two watchlists
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/get?for=stock&user=USER_ID&retrieve=all \
+curl https://sample-url.com/prod/get?for=stock&user=USER_ID&retrieve=all \
   -H 'x-api-key:API_KEY'
     </pre>
     Get a specific item from one of the two watchlists
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/get?for=stock&user=USER_IDretrieve=specific&index=1 \
+curl https://sample-url.com/prod/get?for=stock&user=USER_IDretrieve=specific&index=1 \
   -H 'x-api-key:API_KEY'
     </pre>
   </p>
@@ -90,13 +92,13 @@ Body: 'Error: Index is out of range. Only {count} entry/entries in watchlist!'
   </p>
 </details>
 
-DELETE &nbsp;&nbsp;```https://sample-url.com/prod/remove```
+DELETE &nbsp;&nbsp;```/prod/remove```
 
 <details>
   <summary>Example Request</summary>
   <p>
     <pre lang="">
-curl -X DELETE https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/remove?for=stock&user=USER_ID&index=1 \
+curl -X DELETE https://sample-url.com/prod/remove?for=stock&user=USER_ID&index=1 \
   -H 'x-api-key:API_KEY'
     </pre>
   </p>
@@ -122,24 +124,24 @@ Body: 'Error: Index is Out of Range (1 - {count})'
   </p>
 </details>
 
-GET &emsp;&emsp;```https://sample-url.com/prod/steam```
+GET &emsp;&emsp;```/prod/steam```
 
 <details>
   <summary>Example Request</summary>
   <p><br>
     Validate > to validate item name
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/steam?requestType=validate&itemName=Horizon Case \
+curl https://sample-url.com/prod/steam?requestType=validate&itemName=Horizon Case \
   -H 'x-api-key:API_KEY'
     </pre>
     Basic > to get basic price data
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/steam?requestType=basic&itemName=Horizon Case \
+curl https://sample-url.com/prod/steam?requestType=basic&itemName=Horizon Case \
   -H 'x-api-key:API_KEY'
     </pre>
     Advanced > to get basic price data plus a graph
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/steam?requestType=advanced&itemName=Horizon Case \
+curl https://sample-url.com/prod/steam?requestType=advanced&itemName=Horizon Case \
   -H 'x-api-key:API_KEY'
     </pre>
   </p>
@@ -184,24 +186,24 @@ Body: 'Error: Item not Found'
   </p>
 </details>
 
-GET &emsp;&emsp;```https://sample-url.com/prod/stock```
+GET &emsp;&emsp;```/prod/stock```
 
 <details>
   <summary>Example Request</summary>
   <p><br>
     Validate > to validate item name
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/stock?requestType=validate&ticker=AAPL&exchange=NASDAQ \
+curl https://sample-url.com/prod/stock?requestType=validate&ticker=AAPL&exchange=NASDAQ \
   -H 'x-api-key:API_KEY'
     </pre>
     Basic > to get basic price data
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/stock?requestType=basic&ticker=AAPL&exchange=NASDAQ \
+curl https://sample-url.com/prod/stock?requestType=basic&ticker=AAPL&exchange=NASDAQ \
   -H 'x-api-key:API_KEY'
     </pre>
     Advanced > to get in depth price data
     <pre lang="">
-curl https://4qq4mnhpug.execute-api.us-west-2.amazonaws.com/prod/stock?requestType=advanced&ticker=AAPL&exchange=NASDAQ \
+curl https://sample-url.com/prod/stock?requestType=advanced&ticker=AAPL&exchange=NASDAQ \
   -H 'x-api-key:API_KEY'
     </pre>
   </p>
